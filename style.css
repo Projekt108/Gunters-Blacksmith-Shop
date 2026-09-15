@@ -1,5 +1,35 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
-    background-color: #ffffff;} 
+    box-sizing: border-box;
+}
+
+body {
+    background: black;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.app {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-title {
+    background: grey;
+    min-height: 120px;
+}
+
+.section-sign {
+    background: blue;
+    min-height: 60px;
+}
+
+.shop-floor {
+    background: green;
+    flex: 1;
+    min-height: 250px;
+}
