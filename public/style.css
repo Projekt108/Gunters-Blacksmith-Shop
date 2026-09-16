@@ -1,9 +1,11 @@
+/*CSS reset, makes sure it loads properly in all browsers*/
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/*Centers the page in the middle*/
 body {
     background: black;
     display: flex;
@@ -11,23 +13,27 @@ body {
     min-height: 100vh;
 }
 
+/*Makes sure all the sections stack vertically*/
 .app {
     width: 100%;
-    max-width: 480px;
+    max-width: 480px; /*480px is the max width of most phones*/
     display: flex;
     flex-direction: column;
 }
 
+/*Big title image goes here*/
 .page-title {
     background: grey;
     min-height: 120px;
 }
 
+/*A shared style for both the signs, Item sign and Order status sign*/
 .section-sign {
     background: blue;
     min-height: 60px;
 }
 
+/*Shop floor goes here; fills up excess vertical space at the bottom*/
 .shop-floor {
     background: green;
     flex: 1;
