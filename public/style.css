@@ -13,6 +13,12 @@ body {
     min-height: 100vh;
 }
 
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 /*Makes sure all the sections stack vertically*/
 .app {
     width: 100%;
@@ -24,18 +30,14 @@ body {
 /*Big title image goes here*/
 .page-title {
     background: grey;
-    min-height: 120px;
 }
 
-/*A shared style for both the signs, Item sign and Order status sign*/
-.section-sign {
+/*A style for the queue title*/
+.queue-title {
     background: blue;
-    min-height: 60px;
 }
 
-/*Shop floor goes here; fills up excess vertical space at the bottom*/
+/*Shop floor goes here*/
 .shop-floor {
     background: green;
-    flex: 1;
-    min-height: 250px;
 }
