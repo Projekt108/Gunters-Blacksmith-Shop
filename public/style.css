@@ -32,8 +32,8 @@ img {
     background: grey;
 }
 
-/*A style for the queue title*/
-.queue-title {
+/*A shared style for the add to cart and queue title*/
+.title-headings {
     background: blue;
 }
 
