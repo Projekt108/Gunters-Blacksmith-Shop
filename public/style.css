@@ -5,37 +5,48 @@
     box-sizing: border-box;
 }
 
-/*Centers the page in the middle*/
+/*Sets background color for page, not really seen just for testing*/
 body {
-    background: black;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+    background-color: black;
 }
 
-/*Makes sure all the sections stack vertically*/
+/*Makes sure the entire image is shown*/
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/*Makes sure all the sections are centered and fit phone width*/
 .app {
     width: 100%;
     max-width: 480px; /*480px is the max width of most phones*/
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
+    overflow-x: hidden;
 }
 
-/*Big title image goes here*/
-.page-title {
-    background: grey;
-    min-height: 120px;
-}
-
-/*A shared style for both the signs, Item sign and Order status sign*/
-.section-sign {
-    background: blue;
-    min-height: 60px;
-}
-
-/*Shop floor goes here; fills up excess vertical space at the bottom*/
+/*Shop floor goes here*/
 .shop-floor {
-    background: green;
-    flex: 1;
-    min-height: 250px;
+    background-image: url('assets/shop-floor.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+}
+
+/*The horizontal scrollable item bar*/
+.scroll-bar {
+    display: flex;
+    gap: 20px; /*Space between items, adjustable*/
+    overflow-x: auto;
+    padding: 16px;
+}
+
+/*Sets the spacing, size, etc for each individual item*/
+.item {
+    flex: 0 0 auto;
+    width: 50px; /*Width & height of each item, also adjustable*/
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer; /* Changes the cursor to the one with a hand for clicking*/
 }
