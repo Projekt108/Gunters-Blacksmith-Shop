@@ -1,4 +1,3 @@
-/* CSS reset, makes sure it loads properly in all browsers */
 * {
     margin: 0;
     padding: 0;
@@ -59,7 +58,7 @@ img {
     border: none;
     padding: 0;
     cursor: pointer; /* Changes the cursor to the one with a hand for clicking */
-    transition: transform 0.1s; /* Adds a smooth transition for the click effect */
+    transition: transform 0.1s;
 }
 
 /* Adds a satisfying "click" animation effect when an item is tapped */

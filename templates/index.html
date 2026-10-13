@@ -1,8 +1,5 @@
 To make sure the cart button is safely inside the mobile phone dimensions (the 480px app box) and flows naturally with the page instead of floating over anything, we can place it right at the very top of your .app container as a normal part of the layout.
 
-Here is your updated templates/index.html:
-
-HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +52,6 @@ HTML
                     <img src="{{ url_for('static', filename='assets/sword.png') }}" alt="Sword">
                 </button>
 
-                <!--ONLY FOR TESTING THE SCROLL BAR!-->
                 <button class="item" data-item="armor" onclick="window.location.href='{{ url_for('buy_page', item_name='armor') }}'">
                     <img src="{{ url_for('static', filename='assets/armor.png') }}" alt="Armor">
                 </button>

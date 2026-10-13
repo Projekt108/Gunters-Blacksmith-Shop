@@ -1,1 +1,17 @@
-[]
+[
+    {
+        "first_name": "M",
+        "last_name": "C",
+        "order": [
+            "cooking-pot"
+        ]
+    },
+    {
+        "first_name": "M1",
+        "last_name": "C1",
+        "order": [
+            "chainmail",
+            "cooking-pot"
+        ]
+    }
+]

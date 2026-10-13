@@ -3,8 +3,13 @@ import json
 import os
 
 app = Flask(__name__)
-# A secret key is required for Flask to use 'sessions' (to remember the user's cart)
 app.secret_key = 'gunters_forge_secret'
+DATA_FILE = os.path.join('data', 'orders.json')
+
+def initialize_file():
+    if not os.path.exists(DATA_FILE) or os.stat(DATA_FILE).st_size == 0:
+        with open(DATA_FILE, "w") as f:
+            json.dump([], f)
 
 # Route to serve the main blacksmith shop page
 @app.route('/')
@@ -17,7 +22,7 @@ def buy_page(item_name):
     # Passes the name of the item to the HTML template so it knows what to display
     return render_template('buy.html', item_name=item_name)
 
-# Route that secretly handles adding the item to the cart, then sends you to the cart page
+# Route that handles adding the item to the cart, then sends you to the cart page
 @app.route('/add_to_cart/<item_name>', methods=['POST'])
 def add_to_cart(item_name):
     # If the user doesn't have a cart yet, create an empty one
@@ -39,7 +44,7 @@ def view_cart():
     cart_items = session.get('cart', [])
     return render_template('cart.html', cart=cart_items)
 
-# Optional: Sample backend route to read your orders.json file
+# Read orders.json file
 @app.route('/api/orders', methods=['GET'])
 def get_orders():
     data_path = os.path.join('data', 'orders.json')
@@ -58,6 +63,39 @@ def remove_from_cart(index):
             cart.pop(index)
             session['cart'] = cart
     return redirect(url_for('view_cart'))
+
+@app.route('/checkout')
+def checkout():
+    if not session.get('cart'):
+        return redirect(url_for('view_cart'))
+    return render_template('checkout.html')
+
+@app.route('/submit_order', methods=['POST'])
+def submit_order():
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    current_cart_items = session.get('cart', [])
+    new_order = {"first_name": first_name, "last_name": last_name, "order": current_cart_items}
+
+    session.pop('cart', None)
+
+    orders_list = []
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "r") as f:
+            try:
+                orders_list = json.load(f)
+            except json.JSONDecodeError:
+                orders_list = []
+
+    orders_list.append(new_order)
+
+    print("SAVING TO FILE PATH:", os.path.abspath(DATA_FILE))
+
+    with open(DATA_FILE, "w") as f:
+        json.dump(orders_list, f, indent=4)
+
+    return render_template('order_success.html', first_name=first_name)
+
 
 if __name__ == '__main__':
     app.run(port=3000, debug=True)
