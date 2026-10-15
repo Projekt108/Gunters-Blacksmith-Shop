@@ -10,7 +10,7 @@
 
     <h1>Purchase {{ item_name }}</h1>
     
-    <!-- Dynamically loads the image based on the item clicked -->
+    <!-- Loads the image based on item clicked -->
     <img src="{{ url_for('static', filename='assets/' + item_name + '.png') }}" alt="{{ item_name }}" style="max-width: 200px; margin: 20px auto;">
 
     <!-- The form that triggers the Python add_to_cart function -->

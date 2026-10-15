@@ -9,14 +9,14 @@ body {
     background-color: black;
 }
 
-/* Makes sure the entire image is shown */
+/* Double checks that the entire image is shown */
 img {
     display: block;
     width: 100%;
     height: auto;
 }
 
-/* Makes sure all the sections are centered and fit phone width */
+/* Double checks that all the sections are centered and fit phone width */
 .app {
     width: 100%;
     max-width: 480px; /* 480px is the max width of most phones */
@@ -24,7 +24,7 @@ img {
     overflow-x: hidden;
 }
 
-/* Shop floor goes here */
+/* Code for shop floor */
 .shop-floor {
     background-image: url('assets/shop-floor.png');
     background-size: cover;
@@ -39,13 +39,11 @@ img {
     overflow-x: auto;
     padding: 16px;
     
-    /* Optional: Smooth scrolling for iOS */
+    /* Smoother scrolling for phone users */
     -webkit-overflow-scrolling: touch;
-    /* Optional: Hides the default scrollbar in Firefox */
-    scrollbar-width: none; 
 }
 
-/* Optional: Hides the default scrollbar in Chrome/Safari for a cleaner look */
+/* Hides the default scrollbar for iphone */
 .scroll-bar::-webkit-scrollbar {
     display: none;
 }
@@ -57,11 +55,11 @@ img {
     background: none;
     border: none;
     padding: 0;
-    cursor: pointer; /* Changes the cursor to the one with a hand for clicking */
+    cursor: pointer; /* Changes the cursor to a pointer */
     transition: transform 0.1s;
 }
 
-/* Adds a satisfying "click" animation effect when an item is tapped */
+/* Click animation */
 .item:active {
     transform: scale(0.9);
 }
