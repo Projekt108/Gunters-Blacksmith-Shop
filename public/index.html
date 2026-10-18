@@ -58,7 +58,28 @@
             <img src="assets/queue-title.png">
         </div>
 
+        <!--Where all the added orders will show up-->
+        <div id = "queue">
+
+        </div>
+
+        
     </div>
 
+    <!--Popup dialog box for when something is clicked-->
+    <div id="item-dialog" class="dialog-hidden">
+        <div class="dialog-content">
+            <h2 id="dialog-title"></h2>
+            <p id="dialog-price"></p>
+            <p id="dialog-time"></p>
+            
+            <input type="text" id="customer-name" placeholder="Enter your name">
+            <button id="confirm-order-btn">Place Order</button>
+            <button id="close-dialog-btn">Cancel</button>
+        </div>
+    </div>
+
+    <!--Links the JavaScript so the page can use it, somehow I forgot to do this before-->
+    <script src="script.js"></script>
 </body>
 </html>

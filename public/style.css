@@ -50,3 +50,35 @@ img {
     padding: 0;
     cursor: pointer; /* Changes the cursor to the one with a hand for clicking*/
 }
+
+
+/*-----Styling for the dialog box-----*/
+
+/* Hides the dialog box, but only when it actually has this class */
+#item-dialog.dialog-hidden {
+    display: none;
+}
+
+/*Background that covers the screen*/
+#item-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100; /* Makes sure it stays on top of everything */
+}
+
+/*The actual box with the content stuff*/
+.dialog-content {
+    background: #f4e4bc; /*This color looks clean fr*/
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 300px;
+}
