@@ -103,3 +103,8 @@ confirmOrderBtn.addEventListener('click', async () => {
         alert("Failed to place order.");
     }
 });
+
+//Need to make this function
+function fetchOrders() {
+
+}
