@@ -15,7 +15,7 @@
                 <!-- loop.index0 gives us the 0-based position of the item in the list -->
                 {% for item in cart %}
                     <li style="font-size: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 8px;">
-                        <span>🛡️ {{ item }}</span>
+                        <span>🛡️ {{ item.item_name }} (x{{ item.quantity }})</span>
                         
                         <!-- Form to send a POST request to remove this specific item -->
                         <form action="{{ url_for('remove_from_cart', index=loop.index0) }}" method="POST" style="margin: 0;">
