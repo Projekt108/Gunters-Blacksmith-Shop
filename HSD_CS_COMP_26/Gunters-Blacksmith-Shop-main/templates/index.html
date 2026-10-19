@@ -1,0 +1,84 @@
+To make sure the cart button is safely inside the mobile phone dimensions (the 480px app box) and flows naturally with the page instead of floating over anything, we can place it right at the very top of your .app container as a normal part of the layout.
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunter's Blacksmith Shop</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <!--Makes sure the page fits on mobile devices-->
+    <div class="app">
+
+        <!-- Cart Button placed inside the mobile dimensions container -->
+        <div style="display: flex; justify-content: flex-end; padding: 10px 15px; background-color: #111;">
+            <a href="{{ url_for('view_cart') }}" style="background-color: #333; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px; border: 1px solid gray; font-family: sans-serif; font-size: 14px; font-weight: bold;">
+                🛒 Cart
+            </a>
+        </div>
+
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+        </div>
+
+        <!--Add to cart title-->
+        <div class="title-headings">
+            <img src="{{ url_for('static', filename='assets/add-to-cart-title.png') }}" alt="Add to Cart">
+        </div>
+
+        <!--Shop floor with items section-->
+        <div class="shop-floor">
+
+            <!--Horizontal scrollable bar with items-->
+            <div class="scroll-bar">
+                <!-- Items start here, changing the items from buttons to links changed how they align, might need tweaking -->
+                <a class="item" data-item="armor" href="{{ url_for('buy_page', item_name='armor') }}">
+                    <img src="{{ url_for('static', filename='assets/armor.png') }}" alt="Armor">
+                </a>
+                
+                <a class="item" data-item="chainmail" href="{{ url_for('buy_page', item_name='chainmail') }}">
+                    <img src="{{ url_for('static', filename='assets/chainmail.png') }}" alt="Chainmail">
+                </a>
+                
+                <a class="item" data-item="cooking-pot" href="{{ url_for('buy_page', item_name='cooking-pot') }}">
+                    <img src="{{ url_for('static', filename='assets/cooking-pot.png') }}" alt="Cooking Pot">
+                </a>
+                
+                <a class="item" data-item="sword" href="{{ url_for('buy_page', item_name='sword') }}">
+                    <img src="{{ url_for('static', filename='assets/sword.png') }}" alt="Sword">
+                </a>
+
+                <a class="item" data-item="armor" href="{{ url_for('buy_page', item_name='armor') }}">
+                    <img src="{{ url_for('static', filename='assets/armor.png') }}" alt="Armor">
+                </a>
+                <a class="item" data-item="chainmail" href="{{ url_for('buy_page', item_name='chainmail') }}">
+                    <img src="{{ url_for('static', filename='assets/chainmail.png') }}" alt="Chainmail">
+                </a>
+
+            </div>
+
+        </div>
+
+        <!--Order status title-->
+        <div class="title-headings">
+            <img src="{{ url_for('static', filename='assets/queue-title.png') }}" alt="Queue Title">
+            <!-- Display the order queue using Jinja2 templating -->
+            {% if orders %}
+                <ul>
+                {% for order in orders %}
+                    <li><p style="color: green;">{{ order.first_name }} {{ order.last_name }}: {{ order.order | join(', ') }}</p></li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p style="color: red;">No orders in the queue.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+</html>

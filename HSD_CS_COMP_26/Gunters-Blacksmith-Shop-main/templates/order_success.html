@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmed</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="color: white; padding: 20px; font-family: sans-serif;">
+    <h1>Order Submitted Successfully!</h1>
+    <p>Thank you, <strong>{{ first_name }}</strong>. Your order is now in the forge queue.</p>
+    
+    <br>
+    <a href="{{ url_for('home') }}" style="color: orange;">Return to Shop</a>
+</body>
+</html>

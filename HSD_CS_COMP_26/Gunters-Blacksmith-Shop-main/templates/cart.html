@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body style="text-align: center; color: white; padding-top: 50px;">
+
+    <h1>Your Inventory (Cart)</h1>
+
+    <div style="background-color: #222; padding: 20px; max-width: 400px; margin: 0 auto; border: 2px solid gray;">
+        {% if cart %}
+            <ul style="list-style-type: none; padding: 0;">
+                <!-- loop.index0 gives us the 0-based position of the item in the list -->
+                {% for item in cart %}
+                    <li style="font-size: 18px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #444; padding-bottom: 8px;">
+                        <span>🛡️ {{ item }}</span>
+                        
+                        <!-- Form to send a POST request to remove this specific item -->
+                        <form action="{{ url_for('remove_from_cart', index=loop.index0) }}" method="POST" style="margin: 0;">
+                            <button type="submit" style="background-color: darkred; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; font-size: 14px;">Remove</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+
+            <!-- Checkout Button -->
+            <div style="margin-top: 20px;">
+                <a href="{{ url_for('checkout') }}">
+                    <button style="background-color: green; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px; font-size: 16px; font-weight: bold;">Proceed to Checkout</button>
+                </a>
+            </div>
+        {% else %}
+            <p>Your cart is currently empty.</p>
+        {% endif %}
+    </div>
+
+    <br><br>
+    <a href="{{ url_for('home') }}" style="color: orange;">Return to Shop</a>
+
+</body>
+</html>
