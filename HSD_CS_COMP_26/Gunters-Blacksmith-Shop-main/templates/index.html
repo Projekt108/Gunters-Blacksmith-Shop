@@ -70,7 +70,14 @@ To make sure the cart button is safely inside the mobile phone dimensions (the 4
             {% if orders %}
                 <ul>
                 {% for order in orders %}
-                    <li><p style="color: green;">{{ order.first_name }} {{ order.last_name }}: {{ order.order | join(', ') }}</p></li>
+                    
+                    <li><p style="color: green;">{{ order.first_name }} {{ order.last_name }}: 
+                        {% for item in order.order %}
+                            {{ item.item_name }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    </p></li>
+                    
+                    
                 {% endfor %}
                 </ul>
             {% else %}
