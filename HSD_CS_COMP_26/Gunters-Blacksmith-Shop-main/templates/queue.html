@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunter's Shop - Queue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="app">
+
+        <!--Tab bar at the top-->
+        <nav class="tab-bar">
+            <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
+            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
+            <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
+        </nav>
+
+        <!-- Page Content -->
+        <div style="color: white; text-align: center; padding: 50px 20px; font-family: 'Times New Roman', Times, serif;">
+            <h1>About Gunter's Shop</h1>
+            <p>We have been forging steel for the King since 1245.</p>
+        </div>
+
+    </div>
+
+</body>
+</html>

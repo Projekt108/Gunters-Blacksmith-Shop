@@ -61,7 +61,40 @@ img {
     transition: transform 0.1s;
 }
 
-/* Adds a satisfying "click" animation effect when an item is tapped */
-.item:active {
-    transform: scale(0.9);
+
+
+
+
+
+
+/*-----The tab container styling-----*/
+
+.tab-bar {
+    display: flex;
+    background-color: #111;
+    padding: 10px 0;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.tab-bar::-webkit-scrollbar {
+    display: none; 
+}
+
+/*The individual tab links*/
+.tab-link {
+    flex: 0 0 auto;
+    color: white;
+    text-decoration: none;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    padding: 8px 10px;
+}
+
+/* The active page styling */
+.tab-link.active {
+    color: gold;
+    font-weight: bold;
+    border-bottom: 3px solid gold;
 }

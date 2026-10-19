@@ -34,10 +34,30 @@ def load_orders():
 # @app.route(url)
 # def method(variable): 
 @app.route('/') 
-def home():
-    orders = load_orders()
-    return render_template('index.html', orders=orders)
+def home():    
+    return render_template('index.html')
 
+@app.route('/shop')
+def shop():
+    return render_template('shop.html') 
+
+@app.route('/queue')
+def queue():
+    orders = load_orders()
+    return render_template('queue.html', orders=orders)
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/staff')
+def staff():
+    return render_template('staff.html')
+    
 @app.route('/buy/<item_name>')
 def buy_page(item_name):
     return render_template('buy.html', item_name=item_name)

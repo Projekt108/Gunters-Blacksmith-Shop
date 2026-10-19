@@ -1,11 +1,9 @@
-To make sure the cart button is safely inside the mobile phone dimensions (the 480px app box) and flows naturally with the page instead of floating over anything, we can place it right at the very top of your .app container as a normal part of the layout.
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gunter's Blacksmith Shop</title>
+    <title>Gunter's Shop - Home</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -13,12 +11,16 @@ To make sure the cart button is safely inside the mobile phone dimensions (the 4
     <!--Makes sure the page fits on mobile devices-->
     <div class="app">
 
-        <!-- Cart Button placed inside the mobile dimensions container -->
-        <div style="display: flex; justify-content: flex-end; padding: 10px 15px; background-color: #111;">
-            <a href="{{ url_for('view_cart') }}" style="background-color: #333; color: white; padding: 8px 16px; text-decoration: none; border-radius: 6px; border: 1px solid gray; font-family: sans-serif; font-size: 14px; font-weight: bold;">
-                🛒 Cart
-            </a>
-        </div>
+        <!--Nav bar at top of the page-->
+        <nav class="tab-bar">
+            <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
+            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
+            <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
+        </nav>
 
         <!--Page title at top of page-->
         <div class="page-title">
