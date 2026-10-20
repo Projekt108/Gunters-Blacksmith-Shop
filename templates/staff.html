@@ -30,7 +30,7 @@
             
             {% if not logged_in %}
                 <!--Login screen enter password hehe (It's hardcoded)-->
-                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Staff Login</h1>
+                <h1 style="font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 20px; white-space: nowrap;">Staff Login</h1>
                 <p>For authorized workshoppers only</p>
                 
                 {% if error %}
@@ -44,7 +44,7 @@
 
             {% else %}
                 <!--Staff panel-->
-                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Gunter's Dashboard</h1>
+                <h1 style="font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 10px; white-space: nowrap;">Gunter's Dashboard</h1>
                 <a href="{{ url_for('staff_logout') }}" style="color: red; text-decoration: underline; font-size: 1rem;">Logout</a>
 
                 <!--Delete all woo scary-->

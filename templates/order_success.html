@@ -17,7 +17,7 @@
             <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
             <div style="padding: 50px 20px; text-align: center;">
-                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Order Submitted!</h1>
+                <h1 style="font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 20px; white-space: nowrap;">Order Submitted!</h1>
                 <p style="font-size: 1.2rem; line-height: 1.6;">Thank you, <strong>{{ first_name }}</strong>.</p>
                 <p style="font-size: 1.2rem; line-height: 1.6; margin-top: 10px;">Your order is now in the forge queue.</p>
                 
