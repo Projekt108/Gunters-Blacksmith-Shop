@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunter's Shop - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <!--Makes sure the page fits on mobile devices-->
+    <div class="app">
+
+        <!--Nav bar at top of the page-->
+        <nav class="tab-bar">
+            <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
+            <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
+        </nav>
+
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+
+        <!--Featured items section, maybe could have a discount?-->
+        <div style="padding: 40px 20px; text-align: center;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Featured Items</h1>
+            <p>Woo featured items</p>
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        
+    </div>
+
+</body>
+</html>

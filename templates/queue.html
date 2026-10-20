@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gunter's Shop - Queue</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="app">
+        <!--Tab bar at the top-->
+        <nav class="tab-bar">
+            <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
+            <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
+        </nav>
+
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+
+        <!--Public queue to see order list-->
+        <div style="padding: 30px 20px; text-align: center;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">The Forge Queue</h1>
+            <p style="margin-bottom: 30px;">View the current status of your order below.</p>
+
+            {% if orders %}
+                <ul style="list-style: none; padding: 0; text-align: left;">
+                {% for order in orders %}
+                    <li style="background: #222; margin-bottom: 15px; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5a2b;">
+                        <p style="font-weight: bold; font-size: 1.2rem;">{{ order.first_name }} {{ order.last_name }}</p>
+                        
+                        <p style="font-size: 1rem; color: #ccc; margin-top: 5px;">
+                            {% for item in order.order %}
+                                {{ item.item_name }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </p>
+                        
+                        <!--Actually displays the orders here-->
+                        <p style="margin-top: 10px; font-size: 1.1rem;">
+                            Status: <strong style="color: gold;">{{ order.get('status', 'Getting Materials') }}</strong>
+                        </p>
+                    </li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <!--We can put something later if we decide idk not necessary-->
+            {% endif %}
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        
+    </div>
+
+    
+</body>
+</html>

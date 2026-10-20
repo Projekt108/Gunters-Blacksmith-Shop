@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Your Cart</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body style="text-align: center; color: white; padding-top: 50px;">
+
+        <div class="app">
+            <!--Page title at top of page-->
+            <div class="page-title">
+                <img src="{{ url_for('static', filename='assets/page-title.png') }}">
+            </div>
+
+            <img src="{{ url_for('static', filename='assets/divider.png') }}">
+
+            <h1>Your Inventory (Cart)</h1>
+
+            <div style="background-color: #222; padding: 20px; max-width: 400px; margin: 0 auto; border: 2px solid gray;">
+                {% if cart %}
+                    <ul style="list-style-type: none; padding: 0;">
+                        <!--loop.index0 gives the 0-based position of the item in the list-->
+                        {% for item in cart %}
+                            <li style="font-size: 18px; margin-bottom: 12px; display: flex; flex-direction: column; border-bottom: 1px solid #444; padding-bottom: 8px;">
+                                
+                                <!--Shows the item name and calculated price-->
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>🛡️ {{ item.item_name | replace('-', ' ') | title }} (x{{ item.quantity }})</span>
+                                    <span style="color: gold;">${{ "%.2f"|format(prices[item.item_name] * item.quantity) }}</span>
+                                </div>
+
+                                <!--Form to send a POST request to remove specific item-->
+                                <form action="{{ url_for('remove_from_cart', index=loop.index0) }}" method="POST" style="margin: 0; text-align: right;">
+                                    <button type="submit" style="background-color: darkred; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; font-size: 14px;">Remove</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <!--Shows the total calculated-->
+                    <h2 style="text-align: right; color: gold; margin-top: 15px;">Total: ${{ "%.2f"|format(total) }}</h2>
+
+                    <!--Checkout Button-->
+                    <div style="margin-top: 20px;">
+                        <a href="{{ url_for('checkout') }}">
+                            <button style="background-color: green; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 4px; font-size: 16px; font-weight: bold; width: 100%;">Proceed to Checkout</button>
+                        </a>
+                    </div>
+                {% else %}
+                    <p>Your cart is currently empty.</p>
+                {% endif %}
+            </div>
+
+            <br><br>
+            <a href="{{ url_for('shop') }}" style="color: orange;">Return to Shop</a>
+
+            <img src="{{ url_for('static', filename='assets/divider.png') }}">
+        </div>
+
+    </body>
+</html>
