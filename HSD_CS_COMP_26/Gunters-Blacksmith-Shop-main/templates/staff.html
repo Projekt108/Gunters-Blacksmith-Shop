@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gunte's Shop - Staff</title>
+    <title>Gunter's Shop - Staff</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -24,12 +24,14 @@
             <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
         </div>
         
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+
         <div style="padding: 30px 20px; text-align: center;">
             
             {% if not logged_in %}
                 <!--Login screen enter password hehe (It's hardcoded)-->
                 <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Staff Login</h1>
-                <p>Authorized personnel only.</p>
+                <p>For authorized workshoppers only</p>
                 
                 {% if error %}
                     <p style="color: red; font-weight: bold;">{{ error }}</p>
@@ -97,6 +99,9 @@
             {% endif %}
 
         </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        
     </div>
 </body>
 </html>

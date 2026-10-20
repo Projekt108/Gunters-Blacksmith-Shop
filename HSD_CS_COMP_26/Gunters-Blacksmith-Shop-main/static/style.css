@@ -30,30 +30,28 @@ img {
     overflow-x: hidden;
 }
 
-/*Shop floor goes here*/
-.shop-floor {
-    background-image: url('assets/shop-floor.png');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
+/*The grid for the shop items*/
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /*Forces exactly 2 columns, did not know this existed*/
+    gap: 15px;
+    padding: 20px;
 }
 
-/*The horizontal scrollable item bar*/
-.scroll-bar {
-    display: flex;
-    gap: 20px; /*Space between items, adjustable*/
-    overflow-x: auto;
-    padding: 16px;
+/*Makes sure the images scale on bigger screens*/
+.shop-grid .item img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
-/* Sets the spacing, size, etc for each individual item */
+/*Spacing, size, and other stuff for each individual item*/
 .item {
-    flex: 0 0 auto;
-    width: 50px; /* Width & height of each item, also adjustable */
+    width: 100%;
     background: none;
     border: none;
     padding: 0;
-    cursor: pointer; /* Changes the cursor to the one with a hand for clicking */
+    cursor: pointer;
     transition: transform 0.1s;
 }
 
@@ -70,10 +68,6 @@ img {
     background-color: #111;
     padding: 10px 0;
     width: 100%;
-}
-
-.tab-bar::-webkit-scrollbar {
-    display: none; 
 }
 
 /*The individual tab links*/

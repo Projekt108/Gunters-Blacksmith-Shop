@@ -3,8 +3,9 @@ from flask import Flask, render_template, jsonify, session, redirect, url_for, r
 import json
 import os
 
-# Initialize the Flask application and configure the secret key for security 
+# Sets up Flask application and secret key 
 app = Flask(__name__)
+PRICES = {'sword': 80.00, 'helm': 50.00, 'chestplate': 100.00, 'cooking-pot': 20.00}
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-only-change-me')
 
 # Path to the JSON file for storing orders
@@ -19,7 +20,7 @@ def initialize_comments():
         with open(COMMENTS_FILE, "w") as f:
             json.dump([], f)
 
-# Initialize the orders file if it doesn't exist
+# Initialize the orders file if it doesn't exist somehow
 def initialize_file():
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
     if not os.path.exists(DATA_FILE) or os.stat(DATA_FILE).st_size == 0:
@@ -39,7 +40,7 @@ def load_orders():
 
     return orders
 
-# Define the routes for the web application
+# All the routes for each page
 # @app.route(url)
 # def method(variable): 
 @app.route('/') 
@@ -65,7 +66,8 @@ def contact():
     
 @app.route('/buy/<item_name>')
 def buy_page(item_name):
-    return render_template('buy.html', item_name=item_name)
+    item_price = PRICES.get(item_name, 0.00)
+    return render_template('buy.html', item_name=item_name, price=item_price)
 
 @app.route('/add_to_cart/<item_name>', methods=['POST'])
 def add_to_cart(item_name):
@@ -78,19 +80,10 @@ def add_to_cart(item_name):
 
 @app.route('/cart')
 def view_cart():
-    # Retrieve the current cart items from the session
     cart_items = session.get('cart', [])
-    return render_template('cart.html', cart=cart_items)
-
-@app.route('/api/orders', methods=['GET'])
-def get_orders():
-    # Attempt to load and return the orders as JSON
-    try:
-        return jsonify(load_orders())
-    except (json.JSONDecodeError, ValueError):
-        return jsonify({"error": "Invalid orders data"}), 500
-    except OSError:
-        return jsonify({"error": "Unable to read orders"}), 500
+    # Calculate the total price
+    total = sum(PRICES.get(item['item_name'], 0) * item['quantity'] for item in cart_items)
+    return render_template('cart.html', cart=cart_items, prices=PRICES, total=total)
 
 @app.route('/remove_from_cart/<int:index>', methods=['POST'])
 def remove_from_cart(index):

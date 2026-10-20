@@ -26,66 +26,16 @@
             <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
         </div>
 
-        <!--Add to cart title-->
-        <div class="title-headings">
-            <img src="{{ url_for('static', filename='assets/add-to-cart-title.png') }}" alt="Add to Cart">
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+
+        <!--Featured items section, maybe could have a discount?-->
+        <div style="padding: 40px 20px; text-align: center;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Featured Items</h1>
+            <p>Woo featured items</p>
         </div>
 
-        <!--Shop floor with items section-->
-        <div class="shop-floor">
-
-            <!--Horizontal scrollable bar with items-->
-            <div class="scroll-bar">
-                <!-- Items start here, changing the items from buttons to links changed how they align, might need tweaking -->
-                <a class="item" data-item="armor" href="{{ url_for('buy_page', item_name='armor') }}">
-                    <img src="{{ url_for('static', filename='assets/armor.png') }}" alt="Armor">
-                </a>
-                
-                <a class="item" data-item="chainmail" href="{{ url_for('buy_page', item_name='chainmail') }}">
-                    <img src="{{ url_for('static', filename='assets/chainmail.png') }}" alt="Chainmail">
-                </a>
-                
-                <a class="item" data-item="cooking-pot" href="{{ url_for('buy_page', item_name='cooking-pot') }}">
-                    <img src="{{ url_for('static', filename='assets/cooking-pot.png') }}" alt="Cooking Pot">
-                </a>
-                
-                <a class="item" data-item="sword" href="{{ url_for('buy_page', item_name='sword') }}">
-                    <img src="{{ url_for('static', filename='assets/sword.png') }}" alt="Sword">
-                </a>
-
-                <a class="item" data-item="armor" href="{{ url_for('buy_page', item_name='armor') }}">
-                    <img src="{{ url_for('static', filename='assets/armor.png') }}" alt="Armor">
-                </a>
-                <a class="item" data-item="chainmail" href="{{ url_for('buy_page', item_name='chainmail') }}">
-                    <img src="{{ url_for('static', filename='assets/chainmail.png') }}" alt="Chainmail">
-                </a>
-
-            </div>
-
-        </div>
-
-        <!--Order status title-->
-        <div class="title-headings">
-            <img src="{{ url_for('static', filename='assets/queue-title.png') }}" alt="Queue Title">
-            <!-- Display the order queue using Jinja2 templating -->
-            {% if orders %}
-                <ul>
-                {% for order in orders %}
-                    
-                    <li><p style="color: green;">{{ order.first_name }} {{ order.last_name }}: 
-                        {% for item in order.order %}
-                            {{ item.item_name }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
-                        {% endfor %}
-                    </p></li>
-                    
-                    
-                {% endfor %}
-                </ul>
-            {% else %}
-                <p style="color: red;">No orders in the queue.</p>
-            {% endif %}
-        </div>
-
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        
     </div>
 
 </body>
