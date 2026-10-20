@@ -72,26 +72,26 @@ python -m pip install -r requirements.txt
 
 
 ## Meet the Team
-### Jerry Liu
-Lead Backend Developer
-- Developed Python functions
-- Programmed Flask decorators
-- Configued database for user data
-
 ### Aryan Bhadule
 Lead Frontend Developer
 - Developed CSS and HTML 
 - Implemented user interface and user flows
 - Designed staff page and login
 
-### Zane Schrage
-Frontend Developer, Lead Infrastructure Engineer
-- Set up the web server on Raspberry Pi 5
-- Configured the web server for http and https
-- Html and CSS planning
+### Jerry Liu
+Lead Backend Developer
+- Developed Python functions
+- Programmed Flask decorators
+- Configued database for user data
 
 ### Soham Mukherjee
 Lead Graphic Designer, Presentation Designer
 - Created key graphic elements
 - Designed website theming 
 - Organized presentation materials 
+
+### Zane Schrage
+Frontend Developer, Lead Infrastructure Engineer
+- Set up the web server on Raspberry Pi 5
+- Configured the web server for http and https
+- Html and CSS planning
