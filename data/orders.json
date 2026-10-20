@@ -1,17 +1,1 @@
-[
-    {
-        "first_name": "jerr",
-        "last_name": "y",
-        "order": [
-            {
-                "item_name": "sword",
-                "quantity": 3
-            },
-            {
-                "item_name": "cooking-pot",
-                "quantity": 1
-            }
-        ],
-        "status": "Getting Materials"
-    }
-]
+[]

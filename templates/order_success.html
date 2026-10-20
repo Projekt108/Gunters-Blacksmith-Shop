@@ -1,15 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Order Confirmed</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body style="color: white; padding: 20px; font-family: sans-serif;">
-    <h1>Order Submitted Successfully!</h1>
-    <p>Thank you, <strong>{{ first_name }}</strong>. Your order is now in the forge queue.</p>
-    
-    <br>
-    <a href="{{ url_for('home') }}" style="color: orange;">Return to Shop</a>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Confirmed</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        
+        <div class="app">
+            <!--Page title at top of page-->
+            <div class="page-title">
+                <img src="{{ url_for('static', filename='assets/page-title.png') }}">
+            </div>
+
+            <img src="{{ url_for('static', filename='assets/divider.png') }}">
+
+            <div style="padding: 50px 20px; text-align: center;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Order Submitted!</h1>
+                <p style="font-size: 1.2rem; line-height: 1.6;">Thank you, <strong>{{ first_name }}</strong>.</p>
+                <p style="font-size: 1.2rem; line-height: 1.6; margin-top: 10px;">Your order is now in the forge queue.</p>
+                
+                <br><br>
+                <a href="{{ url_for('shop') }}">
+                    <button style="padding: 15px 30px; background-color: #8b5a2b; color: #e4cc94; border: 2px solid #5a3a1a; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer;">Return to Shop</button>
+                </a>
+            </div>
+
+            <img src="{{ url_for('static', filename='assets/divider.png') }}">
+        </div>
+
+    </body>
 </html>

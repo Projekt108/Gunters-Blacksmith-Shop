@@ -28,12 +28,13 @@
 
         <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
 
-        <!-- Title -->
-        <div style="color: white; text-align: center; padding: 50px 20px; font-family: 'Times New Roman', Times, serif;">
-            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">The Shop</h1>
+        <!-- Individual items title -->
+        <div style="color: white; text-align: center; padding: 20px; font-family: 'Times New Roman', Times, serif;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0px;">The Shop</h1>
         </div>
         
         <!--The shop floor two-wide cloumn grid thingy-->
+        <!--Individual items-->
         <div class="shop-grid">
             <a class="item" href="{{ url_for('buy_page', item_name='sword') }}">
                 <img src="{{ url_for('static', filename='assets/sword.png') }}" alt="Sword">
@@ -50,10 +51,53 @@
             <a class="item" href="{{ url_for('buy_page', item_name='cooking-pot') }}">
                 <img src="{{ url_for('static', filename='assets/cooking-pot.png') }}" alt="Cooking Pot">
             </a>
+
+            <a class="item" href="{{ url_for('buy_page', item_name='armored-boots') }}">
+                <img src="{{ url_for('static', filename='assets/armored-boots.png') }}" alt="Armored Boots">
+            </a>
+            
+            <a class="item" href="{{ url_for('buy_page', item_name='healing-brew') }}">
+                <img src="{{ url_for('static', filename='assets/healing-brew.png') }}" alt="Healing Brew">
+            </a>
+
+            <a class="item" href="{{ url_for('buy_page', item_name='refined-saddle') }}">
+                <img src="{{ url_for('static', filename='assets/refined-saddle.png') }}" alt="Refined Saddle">
+            </a>
+
+            <a class="item" href="{{ url_for('buy_page', item_name='chalice') }}">
+                <img src="{{ url_for('static', filename='assets/chalice.png') }}" alt="Chalice">
+            </a>
         </div>
 
         <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
 
+
+        <!-- Bundle items title -->
+        <div style="color: white; text-align: center; padding: 20px; font-family: 'Times New Roman', Times, serif;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0px;">Bundles</h1>
+        </div>
+
+
+        <!--Bundles-->
+        <div class="shop-grid">
+            <a class="item" href="{{ url_for('buy_page', item_name='chalice-saddle') }}">
+                <img src="{{ url_for('static', filename='assets/chalice-saddle.png') }}" alt="Chalice & Saddle">
+            </a>
+
+            <a class="item" href="{{ url_for('buy_page', item_name='helmet-cooking-pot') }}">
+                <img src="{{ url_for('static', filename='assets/helmet-cooking-pot.png') }}" alt="Helmet & Cooking Pot">
+            </a>
+
+            <a class="item" href="{{ url_for('buy_page', item_name='sword-potion') }}">
+                <img src="{{ url_for('static', filename='assets/sword-potion.png') }}" alt="Sword & Potion">
+            </a>
+
+            <a class="item" href="{{ url_for('buy_page', item_name='full-set') }}">
+                <img src="{{ url_for('static', filename='assets/full-set.png') }}" alt="Full Set">
+            </a>
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
     </div>
 
 </body>

@@ -2,11 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Checkout</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-    <body style="color: white; padding: 20px; font-family: sans-serif;">
-
+    <body>
+        
         <div class="app">
             <!--Page title at top of page-->
             <div class="page-title">
@@ -15,25 +16,26 @@
 
             <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
-            <h1>Forge Checkout</h1>
-            
-            <!-- This form sends a POST request to your submit_order route -->
-            <form action="{{ url_for('submit_order') }}" method="POST" style="margin-top: 20px;">
-                <div style="margin-bottom: 15px;">
-                    <label>First Name:</label><br>
-                    <input type="text" name="first_name" required style="padding: 6px; margin-top: 5px;">
-                </div>
+            <div style="padding: 30px 20px; text-align: center;">
+                <h1>Forge Checkout</h1>
                 
-                <div style="margin-bottom: 15px;">
-                    <label>Last Name:</label><br>
-                    <input type="text" name="last_name" required style="padding: 6px; margin-top: 5px;">
-                </div>
-                
-                <button type="submit" style="padding: 10px 20px; background-color: darkred; color: white; border: none; cursor: pointer;">Submit Order</button>
-            </form>
+                <form action="{{ url_for('submit_order') }}" method="POST" style="margin-top: 20px; max-width: 300px; margin-left: auto; margin-right: auto;">
+                    <div style="margin-bottom: 15px; text-align: left;">
+                        <label>First Name:</label><br>
+                        <input type="text" name="first_name" required style="width: 100%; padding: 10px; margin-top: 5px; background: #222; color: #e4cc94; border: 1px solid #5a3a1a; border-radius: 5px;">
+                    </div>
+                    
+                    <div style="margin-bottom: 25px; text-align: left;">
+                        <label>Last Name:</label><br>
+                        <input type="text" name="last_name" required style="width: 100%; padding: 10px; margin-top: 5px; background: #222; color: #e4cc94; border: 1px solid #5a3a1a; border-radius: 5px;">
+                    </div>
+                    
+                    <button type="submit" style="width: 100%; padding: 15px; background-color: #8b5a2b; color: #e4cc94; border: 2px solid #5a3a1a; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer;">Submit Order</button>
+                </form>
 
-            <br>
-            <a href="{{ url_for('view_cart') }}" style="color: orange;">Return to Cart</a>
+                <br>
+                <a href="{{ url_for('view_cart') }}" style="color: orange; text-decoration: none;">Return to Cart</a>
+            </div>
 
             <img src="{{ url_for('static', filename='assets/divider.png') }}">
         </div>

@@ -5,7 +5,9 @@ import os
 
 # Sets up Flask application and secret key 
 app = Flask(__name__)
-PRICES = {'sword': 80.00, 'helm': 50.00, 'chestplate': 100.00, 'cooking-pot': 20.00}
+PRICES = {'sword': 80.00, 'helm': 50.00, 'chestplate': 100.00, 'cooking-pot': 20.00, 'armored-boots': 40.00, 'healing-brew': 25.00, 'refined-saddle': 60.00, 'chalice': 15.00,
+'chalice-saddle': 70.00, 'helmet-cooking-pot': 65.00, 'sword-potion': 90, 'full-set': 200.00 
+}
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-only-change-me')
 
 # Path to the JSON file for storing orders
@@ -85,6 +87,12 @@ def view_cart():
     total = sum(PRICES.get(item['item_name'], 0) * item['quantity'] for item in cart_items)
     return render_template('cart.html', cart=cart_items, prices=PRICES, total=total)
 
+@app.route('/clear_cart')
+def clear_cart():
+    # Clear the whole cart
+    session.pop('cart', None)
+    return redirect(url_for('shop'))
+
 @app.route('/remove_from_cart/<int:index>', methods=['POST'])
 def remove_from_cart(index):
     # Retrieve the current cart from the session
@@ -148,7 +156,7 @@ def staff():
     if request.method == 'POST':
         password = request.form.get('password')
         # Hardcoded password (Not a good idea in practice but it's ok)
-        if password == "guntermunter": 
+        if password == "staff@123": 
             session['is_staff'] = True
             return redirect(url_for('staff'))
         else:
