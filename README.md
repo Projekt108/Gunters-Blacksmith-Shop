@@ -94,4 +94,4 @@ Lead Graphic Designer, Presentation Designer
 Frontend Developer, Lead Infrastructure Engineer
 - Set up the web server on Raspberry Pi 5
 - Configured the web server for http and https
-- Html and CSS planning
+- HTML and CSS planning
