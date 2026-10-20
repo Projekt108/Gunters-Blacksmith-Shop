@@ -2,12 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Buy {{ item_name }}</title>
-        
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-    <body style="text-align: center; color: white; padding-top: 50px;">
-
+    <body>
+        
         <div class="app">
             <!--Page title at top of page-->
             <div class="page-title">
@@ -16,24 +16,27 @@
 
             <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
-            <h1>Purchase {{ item_name | replace('-', ' ') | title }}</h1>
-            
-            <!--Shows price from app.py-->
-            <p style="font-size: 24px; color: gold; margin-bottom: 20px;">
-                Price: ${{ "%.2f"|format(price) }}
-            </p>
-            
-            <!--Loads the image based on the item clicked-->
-            <img src="{{ url_for('static', filename='assets/' + item_name + '.png') }}" style="max-width: 200px; margin: 20px auto;">
+            <div style="text-align: center; padding: 30px 20px;">
+                <h1>Purchase {{ item_name | replace('-', ' ') | title }}</h1>
+                
+                <!--Shows price from app.py-->
+                <p style="font-size: 24px; color: gold; margin-bottom: 20px;">
+                    Price: ${{ "%.2f"|format(price) }}
+                </p>
+                
+                <!--Loads the image based on the item clicked-->
+                <img src="{{ url_for('static', filename='assets/' + item_name + '.png') }}" style="max-width: 200px; margin: 20px auto;">
 
-            <!--The form that triggers the Python add_to_cart function-->
-            <form action="{{ url_for('add_to_cart', item_name=item_name) }}" method="POST">
-                <input type="number" id="quantity" name="quantity" value="1" min="1" max ="10" style="padding: 10px; font-size: 16px; margin: 10px 0;">
-                <button type="submit" style="padding: 15px 30px; font-size: 18px; cursor: pointer; background-color: darkred; color: white; border: none;">Add to Order</button>
-            </form>
+                <!--The form that triggers the Python add_to_cart function-->
+                <form action="{{ url_for('add_to_cart', item_name=item_name) }}" method="POST">
+                    <input type="number" id="quantity" name="quantity" value="1" min="1" max="10" style="padding: 10px; font-size: 16px; margin: 10px 0; background: #222; color: #e4cc94; border: 1px solid #5a3a1a; border-radius: 5px; text-align: center;">
+                    <br>
+                    <button type="submit" style="padding: 15px 30px; font-size: 18px; cursor: pointer; background-color: #8b5a2b; color: #e4cc94; border: 2px solid #5a3a1a; border-radius: 8px; margin-top: 10px;">Add to Order</button>
+                </form>
 
-            <br><br>
-            <a href="{{ url_for('shop') }}" style="color: orange;">Return to Shop</a>
+                <br><br>
+                <a href="{{ url_for('shop') }}" style="color: orange; text-decoration: none;">Return to Shop</a>
+            </div>
 
             <img src="{{ url_for('static', filename='assets/divider.png') }}">
         </div>

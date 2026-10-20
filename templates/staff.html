@@ -21,16 +21,16 @@
 
         <!--Page title at top of page-->
         <div class="page-title">
-            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}">
         </div>
         
-        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
         <div style="padding: 30px 20px; text-align: center;">
             
             {% if not logged_in %}
                 <!--Login screen enter password hehe (It's hardcoded)-->
-                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Staff Login</h1>
+                <h1 style="font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 20px; white-space: nowrap;">Staff Login</h1>
                 <p>For authorized workshoppers only</p>
                 
                 {% if error %}
@@ -44,14 +44,14 @@
 
             {% else %}
                 <!--Staff panel-->
-                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Gunter's Dashboard</h1>
+                <h1 style="font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 10px; white-space: nowrap;">Gunter's Dashboard</h1>
                 <a href="{{ url_for('staff_logout') }}" style="color: red; text-decoration: underline; font-size: 1rem;">Logout</a>
 
                 <!--Delete all woo scary-->
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
                     <h2 style="text-align: left; margin: 0;">Current Orders</h2>
                     <form action="{{ url_for('clear_orders') }}" method="POST" style="margin: 0;">
-                        <button type="submit" style="background: darkred; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Clear All</button>
+                        <button type="submit" style="background: darkred; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Clear All Orders</button>
                     </form>
                 </div>
 
@@ -84,11 +84,17 @@
                     <p style="margin-top: 15px;">No orders yet.</p>
                 {% endif %}
 
-                <h2 style="margin-top: 40px; text-align: left;">Customer Comments</h2>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px;">
+                    <h2 style="text-align: left; margin: 0;">Customer Comments</h2>
+                    <form action="{{ url_for('clear_comments') }}" method="POST" style="margin: 0;">
+                        <button type="submit" style="background: darkred; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Clear All Comments</button>
+                    </form>
+                </div>
+
                 {% if comments %}
-                    <ul style="list-style: none; padding: 0; text-align: left;">
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-top: 15px;">
                     {% for comment in comments %}
-                        <li style="background: #222; margin-bottom: 10px; padding: 10px; border-left: 4px solid #8b5a2b;">
+                        <li style="background: #222; color: white; margin-bottom: 10px; padding: 10px; border-left: 4px solid #8b5a2b;">
                             "{{ comment }}"
                         </li>
                     {% endfor %}
@@ -100,7 +106,7 @@
 
         </div>
 
-        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        <img src="{{ url_for('static', filename='assets/divider.png') }}">
         
     </div>
 </body>
