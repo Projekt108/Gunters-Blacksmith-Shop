@@ -45,8 +45,9 @@ def buy_page(item_name):
 @app.route('/add_to_cart/<item_name>', methods=['POST'])
 def add_to_cart(item_name):
     # Retrieve the current cart from the session
+    quantity = int(request.form.get('quantity') or 1)
     cart = session.get('cart', [])
-    cart.append(item_name)
+    cart.append({"item_name": item_name, "quantity": quantity})
     session['cart'] = cart
     return redirect(url_for('view_cart'))
 
