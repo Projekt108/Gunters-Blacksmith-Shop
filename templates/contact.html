@@ -22,16 +22,20 @@
         
         <!--Page title at top of page-->
         <div class="page-title">
-            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}">
         </div>
 
-        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
         <!--Contact details stuff-->
         <div style="padding: 30px 20px; text-align: center; display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
             
             <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Contact Gunter</h1>
             
+            {% if request.args.get('success') %}
+            <p style="color: #8b5a2b; font-weight: bold; margin-bottom: 20px;">Message sent to Gunter!</p>
+            {% endif %}
+
             <p style="font-size: 1.2rem; margin-bottom: 10px;">Orb Mail: Gunther@MauternMail.Orb</p>
             <p style="font-size: 1.2rem; margin-bottom: 30px;">Orb Phone: +ORB 913-555-949</p>
 
@@ -50,7 +54,7 @@
 
         </div>
 
-        <img src="{{ url_for('static', filename='assets/divider.png') }}" alt="Divider">
+        <img src="{{ url_for('static', filename='assets/divider.png') }}">
         
     </div>
 

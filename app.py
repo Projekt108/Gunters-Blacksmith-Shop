@@ -219,7 +219,7 @@ def submit_comment():
         with open(COMMENTS_FILE, "w") as f:
             json.dump(comments, f, indent=4)
             
-    return redirect(url_for('contact'))
+    return redirect(url_for('contact', success = 1))
 
 @app.route('/clear_orders', methods=['POST'])
 def clear_orders():
@@ -232,6 +232,17 @@ def clear_orders():
         
     return redirect(url_for('staff'))
 
+@app.route('/clear_comments', methods=['POST'])
+def clear_comments():
+    if not session.get('is_staff'):
+        return "Unauthorized no access for you", 403
+        
+    #Overwrite file with an empty list to clear it
+    with open(COMMENTS_FILE, "w") as f:
+        json.dump([], f)
+        
+    return redirect(url_for('staff'))
+    
 @app.route('/delete_order/<int:index>', methods=['POST'])
 def delete_order(index):
     if not session.get('is_staff'):
