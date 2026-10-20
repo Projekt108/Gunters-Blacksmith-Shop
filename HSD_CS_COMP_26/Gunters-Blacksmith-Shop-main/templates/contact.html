@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gunter's Shop - Contact</title>
+    <title>Contact - Gunter's</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
@@ -17,14 +17,35 @@
             <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
-            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
+        
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+        </div>
 
-        <!-- Page Content -->
-        <div style="color: white; text-align: center; padding: 50px 20px; font-family: 'Times New Roman', Times, serif;">
-            <h1>About Gunter's Shop</h1>
-            <p>We have been forging steel for the King since 1245.</p>
+        <!--Contact details stuff-->
+        <div style="padding: 30px 20px; text-align: center; display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
+            
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Contact Gunter</h1>
+            
+            <p style="font-size: 1.2rem; margin-bottom: 10px;">Orb Mail: Gunther@MauternMail.Orb</p>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Orb Phone: +ORB 913-555-949</p>
+
+            <!--Comment form section-->
+                    <form action="{{ url_for('submit_comment') }}" method="POST" style="margin-bottom: 30px; display: flex; flex-direction: column; align-items: center;">
+                        <textarea name="comment" rows="3" placeholder="Leave a message for Gunter..." required style="width: 90%; max-width: 300px; padding: 10px; border-radius: 5px; border: 1px solid #5a3a1a; background: #222; color: #e4cc94; font-family: 'Times New Roman', Times, serif; margin-bottom: 10px;"></textarea>
+                        <button type="submit" style="background-color: #8b5a2b; color: #e4cc94; padding: 15px 30px; border: 2px solid #5a3a1a; border-radius: 8px; font-family: 'Times New Roman', Times, serif; font-size: 1.2rem; cursor: pointer;">
+                            Send Message
+                        </button>
+                    </form>
+
+            <!--Ship image at the bottom-->
+            <div style="margin-top: auto; padding-top: 40px;">
+                <img src="{{ url_for('static', filename='assets/explorer.png') }}" style="width: 60%; margin: 0 auto;">
+            </div>
+
         </div>
 
     </div>

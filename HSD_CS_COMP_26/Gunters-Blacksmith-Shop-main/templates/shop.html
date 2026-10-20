@@ -17,14 +17,18 @@
             <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
-            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
 
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+        </div>
+
         <!-- Page Content -->
         <div style="color: white; text-align: center; padding: 50px 20px; font-family: 'Times New Roman', Times, serif;">
-            <h1>About Gunter's Shop</h1>
-            <p>We have been forging steel for the King since 1245.</p>
+            <h1>The Shop</h1>
+            <p>So many items</p>
         </div>
 
     </div>

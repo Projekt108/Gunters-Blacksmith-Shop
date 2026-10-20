@@ -4,27 +4,33 @@
     box-sizing: border-box;
 }
 
-/* Sets background color for page */
+/*Sets background color for page*/
 body {
-    background-color: black;
+    background-color: #0F0F0F;
 }
 
-/* Makes sure the entire image is shown */
+/*Text styling for everything except the tab bar*/
+h1, h2, h3, p, label {
+    color: #e4cc94;
+    font-family: "Times New Roman", Times, serif;
+}
+
+/*Makes sure the entire image is shown*/
 img {
     display: block;
     width: 100%;
     height: auto;
 }
 
-/* Makes sure all the sections are centered and fit phone width */
+/*Makes sure all the sections are centered and fit phone width*/
 .app {
     width: 100%;
-    max-width: 480px; /* 480px is the max width of most phones */
+    max-width: 480px; /*480px is the max width of most phones*/
     margin: 0 auto;
     overflow-x: hidden;
 }
 
-/* Shop floor goes here */
+/*Shop floor goes here*/
 .shop-floor {
     background-image: url('assets/shop-floor.png');
     background-size: cover;
@@ -32,22 +38,12 @@ img {
     min-height: 100vh;
 }
 
-/* The horizontal scrollable item bar */
+/*The horizontal scrollable item bar*/
 .scroll-bar {
     display: flex;
-    gap: 20px; /* Space between items, adjustable */
+    gap: 20px; /*Space between items, adjustable*/
     overflow-x: auto;
     padding: 16px;
-    
-    /* Optional: Smooth scrolling for iOS */
-    -webkit-overflow-scrolling: touch;
-    /* Optional: Hides the default scrollbar in Firefox */
-    scrollbar-width: none; 
-}
-
-/* Optional: Hides the default scrollbar in Chrome/Safari for a cleaner look */
-.scroll-bar::-webkit-scrollbar {
-    display: none;
 }
 
 /* Sets the spacing, size, etc for each individual item */
@@ -74,8 +70,6 @@ img {
     background-color: #111;
     padding: 10px 0;
     width: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
 }
 
 .tab-bar::-webkit-scrollbar {
@@ -84,12 +78,14 @@ img {
 
 /*The individual tab links*/
 .tab-link {
-    flex: 0 0 auto;
+    flex: 1;
+    text-align: center;
     color: white;
     text-decoration: none;
     font-family: "Times New Roman", Times, serif;
-    font-size: 20px;
-    padding: 8px 10px;
+    /*Never knew about this before, clamp() basically sets a min, preferred, and max amount for the font size*/
+    font-size: clamp(11px, 3.5vw, 16px);
+    padding: 12px 0;
 }
 
 /* The active page styling */

@@ -10,6 +10,15 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-only-change-me')
 # Path to the JSON file for storing orders
 DATA_FILE = os.path.join(app.root_path, 'data', 'orders.json')
 
+COMMENTS_FILE = os.path.join(app.root_path, 'data', 'comments.json')
+
+# Initialize comments file in case if it doesn't exist somehow
+def initialize_comments():
+    os.makedirs(os.path.dirname(COMMENTS_FILE), exist_ok=True)
+    if not os.path.exists(COMMENTS_FILE) or os.stat(COMMENTS_FILE).st_size == 0:
+        with open(COMMENTS_FILE, "w") as f:
+            json.dump([], f)
+
 # Initialize the orders file if it doesn't exist
 def initialize_file():
     os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
@@ -53,10 +62,6 @@ def about():
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
-
-@app.route('/staff')
-def staff():
-    return render_template('staff.html')
     
 @app.route('/buy/<item_name>')
 def buy_page(item_name):
@@ -121,7 +126,8 @@ def submit_order():
     new_order = {
         "first_name": first_name,
         "last_name": last_name,
-        "order": current_cart_items
+        "order": current_cart_items,
+        "status": "Getting Materials"
     }
 
     try:
@@ -141,7 +147,106 @@ def submit_order():
 
     return render_template('order_success.html', first_name=first_name)
 
+#-----Staff functions-----#
+
+@app.route('/staff', methods=['GET', 'POST'])
+def staff():
+    # If submit the password form
+    if request.method == 'POST':
+        password = request.form.get('password')
+        # Hardcoded password (Not a good idea in practice but it's ok)
+        if password == "guntermunter": 
+            session['is_staff'] = True
+            return redirect(url_for('staff'))
+        else:
+            return render_template('staff.html', error="Incorrect password!")
+
+    # Check if already logged in
+    if session.get('is_staff'):
+        orders = load_orders()
+        
+        # Load comments
+        try:
+            with open(COMMENTS_FILE, "r") as f:
+                comments = json.load(f)
+        except:
+            comments = []
+            
+        return render_template('staff.html', logged_in=True, orders=orders, comments=comments)
+    
+    # If not logged in show the password screen
+    return render_template('staff.html', logged_in=False)
+
+@app.route('/staff_logout')
+def staff_logout():
+    session.pop('is_staff', None)
+    return redirect(url_for('staff'))
+
+@app.route('/advance_order/<int:index>', methods=['POST'])
+def advance_order(index):
+    if not session.get('is_staff'):
+        return "Unauthorized", 403
+        
+    orders = load_orders()
+    if 0 <= index < len(orders):
+        current_status = orders[index].get('status', 'Getting Materials')
+        
+        # Cycle through statuses
+        if current_status == "Getting Materials":
+            orders[index]['status'] = "Forging"
+        elif current_status == "Forging":
+            orders[index]['status'] = "Packing"
+        elif current_status == "Packing":
+            orders[index]['status'] = "Done"
+            
+        with open(DATA_FILE, "w") as f:
+            json.dump(orders, f, indent=4)
+            
+    return redirect(url_for('staff'))
+
+@app.route('/submit_comment', methods=['POST'])
+def submit_comment():
+    comment_text = request.form.get('comment')
+    if comment_text:
+        try:
+            with open(COMMENTS_FILE, "r") as f:
+                comments = json.load(f)
+        except:
+            comments = []
+            
+        comments.append(comment_text)
+        with open(COMMENTS_FILE, "w") as f:
+            json.dump(comments, f, indent=4)
+            
+    return redirect(url_for('contact'))
+
+@app.route('/clear_orders', methods=['POST'])
+def clear_orders():
+    if not session.get('is_staff'):
+        return "Unauthorized no access for you", 403
+        
+    #Overwrite file with an empty list to clear it
+    with open(DATA_FILE, "w") as f:
+        json.dump([], f)
+        
+    return redirect(url_for('staff'))
+
+@app.route('/delete_order/<int:index>', methods=['POST'])
+def delete_order(index):
+    if not session.get('is_staff'):
+        return "Unauthorized", 403
+        
+    orders = load_orders()
+    if 0 <= index < len(orders):
+        orders.pop(index) #Remove the order at this position in the array
+        
+        with open(DATA_FILE, "w") as f:
+            json.dump(orders, f, indent=4)
+            
+    return redirect(url_for('staff'))
+
 initialize_file()
+initialize_comments()
 
 # Run the web application
 if __name__ == '__main__':

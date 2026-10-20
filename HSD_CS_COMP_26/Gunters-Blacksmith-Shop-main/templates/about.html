@@ -3,28 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gunter's Shop - About</title>
+    <title>About Us - Gunter's</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     
     <div class="app">
 
-        <!--Tab bar at the top-->
+        <!-- Tab Bar -->
         <nav class="tab-bar">
             <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
             <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
             <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
-            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
 
-        <!-- Page Content -->
-        <div style="color: white; text-align: center; padding: 50px 20px; font-family: 'Times New Roman', Times, serif;">
-            <h1>About Gunter's Shop</h1>
-            <p>We have been forging steel for the King since 1245.</p>
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
+        </div>
+
+        <!--About us text wow so tuff-->
+        <div style="padding: 30px 20px; text-align: center; display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
+            
+            <h1 style="font-size: 2.5rem; margin-bottom: 20px;">About Us</h1>
+            
+            <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 15px;">
+                Welcome to Gunter’s, where each order is a journey. First established in 2026, Gunter’s Workshop was built from the belief that everyone deserves quality equipment for their travels. From carefully crafted swords and lasting helmets to resistant armor and pristine cauldrons, we bring the tools needed for every adventure.
+            </p>
+            <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px;">
+                At Gunter’s Workshop, we believe every adventure deserves our finest work. Each item is carefully constructed with great attention to detail and made with the knowledge of past blacksmiths. Whether you’re preparing for your first quest, or for your last, our goal is to help you feel ready for whatever may come your way. Gear up, brave the wilderness, and experience true power with Gunter’s Workshop.
+            </p>
+
+            <!-- The Ship image at the bottom -->
+            <div style="margin-top: auto; padding-top: 40px;">
+                <img src="{{ url_for('static', filename='assets/ship.png') }}" style="width: 60%; margin: 0 auto;">
+            </div>
+
         </div>
 
     </div>

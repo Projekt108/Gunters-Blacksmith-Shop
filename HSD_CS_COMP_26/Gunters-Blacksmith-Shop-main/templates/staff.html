@@ -3,31 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gunter's Shop - Staff</title>
+    <title>Gunte's Shop - Staff</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     
     <div class="app">
-
-        <!--Tab bar at the top-->
+        <!--Tab bar at top of screen-->
         <nav class="tab-bar">
             <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
             <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
             <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
-            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
 
-        <!-- Page Content -->
-        <div style="color: white; text-align: center; padding: 50px 20px; font-family: 'Times New Roman', Times, serif;">
-            <h1>About Gunter's Shop</h1>
-            <p>We have been forging steel for the King since 1245.</p>
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}" alt="Page Title">
         </div>
+        
+        <div style="padding: 30px 20px; text-align: center;">
+            
+            {% if not logged_in %}
+                <!--Login screen enter password hehe (It's hardcoded)-->
+                <h1 style="font-size: 2.5rem; margin-bottom: 20px;">Staff Login</h1>
+                <p>Authorized personnel only.</p>
+                
+                {% if error %}
+                    <p style="color: red; font-weight: bold;">{{ error }}</p>
+                {% endif %}
 
+                <form method="POST" style="margin-top: 20px;">
+                    <input type="password" name="password" placeholder="Enter Password" required style="padding: 10px; font-size: 1.2rem; border-radius: 5px; border: 1px solid #5a3a1a; background: #222; color: #e4cc94;">
+                    <button type="submit" style="padding: 10px 20px; font-size: 1.2rem; background: #8b5a2b; color: #e4cc94; border: 1px solid #5a3a1a; border-radius: 5px; cursor: pointer;">Login</button>
+                </form>
+
+            {% else %}
+                <!--Staff panel-->
+                <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Gunter's Dashboard</h1>
+                <a href="{{ url_for('staff_logout') }}" style="color: red; text-decoration: underline; font-size: 1rem;">Logout</a>
+
+                <!--Delete all woo scary-->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px;">
+                    <h2 style="text-align: left; margin: 0;">Current Orders</h2>
+                    <form action="{{ url_for('clear_orders') }}" method="POST" style="margin: 0;">
+                        <button type="submit" style="background: darkred; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Clear All</button>
+                    </form>
+                </div>
+
+                {% if orders %}
+                    <ul style="list-style: none; padding: 0; text-align: left; margin-top: 15px;">
+                    {% for order in orders %}
+                        <li style="background: #222; margin-bottom: 15px; padding: 15px; border-radius: 8px; border: 1px solid #444;">
+                            <p style="font-weight: bold; font-size: 1.2rem;">{{ order.first_name }} {{ order.last_name }}</p>
+                            <p style="font-size: 1rem; color: #aaa;">
+                                {% for item in order.order %}
+                                    {{ item.item_name }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                            <p style="margin-top: 5px;">Status: <strong style="color: gold;">{{ order.get('status', 'Getting Materials') }}</strong></p>
+                            
+                            <!--Buttons for advance and delete for each order-->
+                            <div style="margin-top: 10px; display: flex; gap: 10px;">
+                                <form action="{{ url_for('advance_order', index=loop.index0) }}" method="POST" style="margin: 0;">
+                                    <button type="submit" style="background: green; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer;">Advance Stage</button>
+                                </form>
+
+                                <form action="{{ url_for('delete_order', index=loop.index0) }}" method="POST" style="margin: 0;">
+                                    <button type="submit" style="background: #800000; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer;">Delete</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p style="margin-top: 15px;">No orders yet.</p>
+                {% endif %}
+
+                <h2 style="margin-top: 40px; text-align: left;">Customer Comments</h2>
+                {% if comments %}
+                    <ul style="list-style: none; padding: 0; text-align: left;">
+                    {% for comment in comments %}
+                        <li style="background: #222; margin-bottom: 10px; padding: 10px; border-left: 4px solid #8b5a2b;">
+                            "{{ comment }}"
+                        </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <p style="margin-top: 15px;">No comments yet.</p>
+                {% endif %}
+            {% endif %}
+
+        </div>
     </div>
-
 </body>
 </html>
