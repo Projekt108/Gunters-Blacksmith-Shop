@@ -28,7 +28,7 @@
                                 
                                 <!--Shows the item name and calculated price-->
                                 <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
-                                    <span style="color:#e4cc94">🛡️ {{ item.item_name | replace('-', ' ') | title }} (x{{ item.quantity }})</span>
+                                    <span style="color:#e4cc94"> {{ item.item_name | replace('-', ' ') | title }} (x{{ item.quantity }})</span>
                                     <span style="color: gold;">${{ "%.2f"|format(prices[item.item_name] * item.quantity) }}</span>
                                 </div>
 
