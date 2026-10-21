@@ -270,6 +270,7 @@ def delete_order(index):
             
     return redirect(url_for('staff'))
 
+# Initialize data and comments files if they do not exist already
 initialize_file()
 initialize_comments()
 

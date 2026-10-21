@@ -4,4 +4,4 @@ __pycache__/
 *.py[cod]
 .env
 .vscode/
-data/*.json
+data/
