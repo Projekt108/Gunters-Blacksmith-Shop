@@ -104,6 +104,15 @@
                 {% else %}
                     <p style="margin-top: 15px;">No comments yet.</p>
                 {% endif %}
+
+                                <!--Minigame Reset Section-->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 40px;">
+                    <h2 style="text-align: left; margin: 0;">Minigame Data</h2>
+                    <form action="{{ url_for('reset_game') }}" method="POST" style="margin: 0;">
+                        <button type="submit" style="background: darkred; color: white; padding: 8px 15px; border: none; border-radius: 5px; cursor: pointer; font-size: 0.9rem;">Reset Game</button>
+                    </form>
+                </div>
+                <p style="text-align: left; color: #aaa; font-size: 0.9rem; margin-top: 5px;">This will wipe all gold and upgrades for the mining game.</p>
             {% endif %}
 
         </div>

@@ -16,8 +16,47 @@ DATA_FILE = os.path.join(app.root_path, 'data', 'orders.json')
 
 COMMENTS_FILE = os.path.join(app.root_path, 'data', 'comments.json')
 GAME_STATE_FILE = os.path.join(app.root_path, 'data', 'game_state.json')
-INITIAL_GAME_STATE = {"cash": 0}
-
+INITIAL_GAME_STATE = {
+    "cash": 0,
+    "upgrades": [
+        {
+            "id": 1,
+            "name": "River Panning",
+            "level": 0,
+            "basecost": 10,
+            "currentcost": 10,
+            "money_generated": 4,
+            "time": 2
+        },
+        {
+            "id": 2,
+            "name": "Serfs",
+            "level": 0,
+            "basecost": 50,
+            "currentcost": 50,
+            "money_generated": 20,
+            "time": 5
+        },
+        {
+            "id": 3,
+            "name": "Mineshafts",
+            "level": 0,
+            "basecost": 1000,
+            "currentcost": 1000,
+            "money_generated": 150,
+            "time": 10
+        },
+        {
+            "id": 4,
+            "name": "Quarries",
+            "level": 0,
+            "basecost": 10000,
+            "currentcost": 10000,
+            "money_generated": 450,
+            "time": 15
+        }
+    ]
+}
 # Initialize comments file in case if it doesn't exist somehow
 def initialize_comments():
     os.makedirs(os.path.dirname(COMMENTS_FILE), exist_ok=True)
@@ -55,9 +94,17 @@ def load_orders():
 def load_game_state():
     if not os.path.exists(GAME_STATE_FILE):
         return INITIAL_GAME_STATE
-    with open(GAME_STATE_FILE, "r") as f:
-        game_state = json.load(f)
-    return game_state
+    try:
+        with open(GAME_STATE_FILE, "r") as f:
+            game_state = json.load(f)
+            
+        # If the upgrades list is missing or empty, reset it to the default!
+        if "upgrades" not in game_state or len(game_state["upgrades"]) == 0:
+            return INITIAL_GAME_STATE
+            
+        return game_state
+    except:
+        return INITIAL_GAME_STATE
 
 # All the routes for each page
 # @app.route(url)
@@ -148,6 +195,17 @@ def remove_from_cart(index):
         session['cart'] = cart
 
     return redirect(url_for('view_cart'))
+
+# Resets the minigame data
+@app.route('/reset_game', methods=['POST'])
+def reset_game():
+    if not session.get('is_staff'):
+        return "Unauthorized", 403
+        
+    with open(GAME_STATE_FILE, "w") as f:
+        json.dump(INITIAL_GAME_STATE, f)
+        
+    return redirect(url_for('staff'))
 
 # Checkout page route
 @app.route('/checkout')

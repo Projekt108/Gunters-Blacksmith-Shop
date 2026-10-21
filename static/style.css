@@ -88,3 +88,9 @@ img {
     font-weight: bold;
     border-bottom: 3px solid gold;
 }
+
+
+
+/* Progress Bar Styling */
+.progress-bar-container { background: #eee; width: 100%; height: 10px; border: 1px solid #000; margin-top: 5px; }
+.progress-fill { background: #000; width: 0%; height: 100%; }
