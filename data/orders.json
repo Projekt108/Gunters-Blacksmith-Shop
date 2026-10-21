@@ -1,19 +1,15 @@
 [
     {
-        "first_name": "5eghe5r",
-        "last_name": "yherg",
+        "first_name": "sb",
+        "last_name": "d bf",
         "order": [
             {
-                "item_name": "full-set",
-                "quantity": 1
-            },
-            {
-                "item_name": "armored-boots",
+                "item_name": "sword",
                 "quantity": 1
             },
             {
                 "item_name": "sword",
-                "quantity": 10
+                "quantity": 4
             }
         ],
         "status": "Getting Materials"

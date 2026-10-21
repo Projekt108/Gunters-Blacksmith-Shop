@@ -13,8 +13,9 @@
         <nav class="tab-bar">
             <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
             <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
-            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
@@ -60,7 +61,7 @@
                     {% for order in orders %}
                         <li style="background: #222; margin-bottom: 15px; padding: 15px; border-radius: 8px; border: 1px solid #444;">
                             <p style="font-weight: bold; font-size: 1.2rem;">{{ order.first_name }} {{ order.last_name }}</p>
-                            <p style="font-size: 1rem; color: #aaa;">
+                            <p style="font-size: 1rem; color: #ccc;">
                                 {% for item in order.order %}
                                     {{ item.item_name | replace('-', ' ') | title }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
                                 {% endfor %}
@@ -94,7 +95,7 @@
                 {% if comments %}
                     <ul style="list-style: none; padding: 0; text-align: left; margin-top: 15px;">
                     {% for comment in comments %}
-                        <li style="background: #222; color: white; margin-bottom: 10px; padding: 10px; border-left: 4px solid #8b5a2b;">
+                        <li style="background: #222; color: #ccc; margin-bottom: 10px; padding: 10px; border-left: 4px solid #8b5a2b;">
                             "{{ comment }}"
                         </li>
                     {% endfor %}
