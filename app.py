@@ -95,16 +95,13 @@ def view_cart():
     total = sum(PRICES.get(item['item_name'], 0) * item['quantity'] for item in cart_items)
     return render_template('cart.html', cart=cart_items, prices=PRICES, total=total)
 
-<<<<<<< HEAD
 @app.route('/clear_cart')
 def clear_cart():
     # Clear the whole cart
     session.pop('cart', None)
     return redirect(url_for('shop'))
 
-=======
 # Remove from cart route, removes an item from the current cart
->>>>>>> 71a3e40 (Comment revisions)
 @app.route('/remove_from_cart/<int:index>', methods=['POST'])
 def remove_from_cart(index):
     # Retrieve the current cart from the session
@@ -191,7 +188,7 @@ def staff():
     
     # If not logged in show the password screen
     return render_template('staff.html', logged_in=False)
-
+# Staff logout route
 @app.route('/staff_logout')
 def staff_logout():
     session.pop('is_staff', None)
@@ -236,7 +233,7 @@ def submit_comment():
             json.dump(comments, f, indent=4)
             
     return redirect(url_for('contact', success = 1))
-
+# Clears all orders from the list
 @app.route('/clear_orders', methods=['POST'])
 def clear_orders():
     if not session.get('is_staff'):
@@ -247,7 +244,7 @@ def clear_orders():
         json.dump([], f)
         
     return redirect(url_for('staff'))
-
+# Clears all comments from the list
 @app.route('/clear_comments', methods=['POST'])
 def clear_comments():
     if not session.get('is_staff'):
@@ -258,7 +255,7 @@ def clear_comments():
         json.dump([], f)
         
     return redirect(url_for('staff'))
-    
+# Removes a specific order from the list
 @app.route('/delete_order/<int:index>', methods=['POST'])
 def delete_order(index):
     if not session.get('is_staff'):

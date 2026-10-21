@@ -39,7 +39,7 @@
                         
                         <p style="font-size: 1rem; color: #ccc; margin-top: 5px;">
                             {% for item in order.order %}
-                                {{ item.item_name }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
+                                {{ item.item_name | replace('-', ' ') | title }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
                             {% endfor %}
                         </p>
                         
@@ -51,7 +51,7 @@
                 {% endfor %}
                 </ul>
             {% else %}
-                <!--We can put something later if we decide idk not necessary-->
+                <!--Unused currently-->
             {% endif %}
         </div>
 

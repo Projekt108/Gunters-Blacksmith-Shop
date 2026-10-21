@@ -1,1 +1,21 @@
-[]
+[
+    {
+        "first_name": "5eghe5r",
+        "last_name": "yherg",
+        "order": [
+            {
+                "item_name": "full-set",
+                "quantity": 1
+            },
+            {
+                "item_name": "armored-boots",
+                "quantity": 1
+            },
+            {
+                "item_name": "sword",
+                "quantity": 10
+            }
+        ],
+        "status": "Getting Materials"
+    }
+]
