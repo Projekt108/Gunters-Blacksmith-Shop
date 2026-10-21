@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify, session, redirect, url_for, r
 import json
 import os
 
+
 # Sets up Flask application and secret key 
 app = Flask(__name__)
 PRICES = {'sword': 80.00, 'helm': 50.00, 'chestplate': 100.00, 'cooking-pot': 20.00, 'armored-boots': 40.00, 'healing-brew': 25.00, 'refined-saddle': 60.00, 'chalice': 15.00,
@@ -14,6 +15,8 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-only-change-me')
 DATA_FILE = os.path.join(app.root_path, 'data', 'orders.json')
 
 COMMENTS_FILE = os.path.join(app.root_path, 'data', 'comments.json')
+GAME_STATE_FILE = os.path.join(app.root_path, 'data', 'game_state.json')
+INITIAL_GAME_STATE = {"cash": 0}
 
 # Initialize comments file in case if it doesn't exist somehow
 def initialize_comments():
@@ -29,6 +32,13 @@ def initialize_file():
         with open(DATA_FILE, "w") as f:
             json.dump([], f)
 
+# Initialize the game state file in case if it doesn't exist somehow
+def initialize_game_state():
+    os.makedirs(os.path.dirname(GAME_STATE_FILE), exist_ok=True)
+    if not os.path.exists(GAME_STATE_FILE) or os.stat(GAME_STATE_FILE).st_size == 0:
+        with open(GAME_STATE_FILE, "w") as f:
+            json.dump(INITIAL_GAME_STATE, f)
+
 # Load orders from the JSON file
 def load_orders():
     if not os.path.exists(DATA_FILE):
@@ -41,6 +51,13 @@ def load_orders():
         raise ValueError("Orders data must be a JSON list")
 
     return orders
+
+def load_game_state():
+    if not os.path.exists(GAME_STATE_FILE):
+        return INITIAL_GAME_STATE
+    with open(GAME_STATE_FILE, "r") as f:
+        game_state = json.load(f)
+    return game_state
 
 # All the routes for each page
 # @app.route(url)
@@ -61,6 +78,24 @@ def shop():
 def queue():
     orders = load_orders()
     return render_template('queue.html', orders=orders)
+# Game page route
+@app.route('/game')
+def game():
+    game_state = load_game_state()
+    return render_template('game.html', game_state=game_state)
+
+@app.route('/get_game_state')
+def get_game_state():
+    state = load_game_state()
+    return jsonify(state)
+
+@app.route('/update_game_state', methods=['POST'])
+def update_game_state():
+    new_state = request.get_json()
+    with open(GAME_STATE_FILE, "w") as f:
+        json.dump(new_state, f)
+    return jsonify({"status": True})
+
 
 # About page route
 @app.route('/about')
@@ -273,6 +308,7 @@ def delete_order(index):
 # Initialize data and comments files if they do not exist already
 initialize_file()
 initialize_comments()
+initialize_game_state()
 
 # Run the web application
 if __name__ == '__main__':

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game - Gunter's</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <div class="app">
+
+        <!-- Tab Bar -->
+        <nav class="tab-bar">
+            <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
+            <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
+            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
+            <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
+            <a href="{{ url_for('game') }}" class="tab-link {{ 'active' if request.path == '/game' else '' }}">Game</a>
+            <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
+        </nav>
+
+        <!--Page title at top of page-->
+        <div class="page-title">
+            <img src="{{ url_for('static', filename='assets/page-title.png') }}">
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}">
+
+        <!--About us text-->
+        <div style="padding: 30px 20px; text-align: center; display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
+            
+            <h1 style="color: #ccc;" id="cash-display">0</h1>
+            <button id="active-income" style="background-color: #800000; color: white; border: 2px solid #5a3a1a; padding: 10px 20px; cursor: pointer; border-radius: 8px; font-size: 16px; width: 100%;">
+                CLICK (+\$1)</button>
+
+        </div>
+
+        <img src="{{ url_for('static', filename='assets/divider.png') }}">
+        
+    </div>
+<script>
+    let game_state = {cash: 0};
+    async function loadGameState() {
+        const response = await fetch('/get_game_state');
+        game_state = await response.json();
+        updateCash();
+    }
+    function updateCash() 
+    {
+        document.getElementById('cash-display').textContent = game_state.cash;
+        
+       
+    }
+    document.getElementById('active-income').addEventListener('click', function() {
+        game_state.cash += 1;
+        updateCash();
+    });
+    setInterval(() => {
+        
+        updateCash();
+        fetch('/update_game_state', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(game_state)
+        });
+    }, 1000);
+    loadGameState();
+</script>
+</body>
+</html>
