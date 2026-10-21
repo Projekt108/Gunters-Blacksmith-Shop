@@ -3,7 +3,16 @@ Java Beans submission for Kansas University's High School Design Competition 202
 
 Link to competition website: https://engr.ku.edu/high-school-design-competition 
 
-A web-based blacksmith shop app built with Python, Flask, HTML, CSS, and Jinja2. Browse items, add products to a cart, and submit orders to the queue with the shop's ordering system. Additional features include a staff page with login requirements, subtotals for cart items, and client communications pathways to staff members. 
+A web-based blacksmith shop app built with Python, Flask, HTML, CSS, and Jinja2. Browse items, add products to a cart, and submit orders to the queue with the shop's ordering system. 
+
+## Feature List 
+- Staff page with login requirements
+- Staff order management
+- Client communications pathways to staff members
+- Removing cart items and subtotals
+- Live queue for customer orders
+- About us page
+- Additional shop items
 
 ## Prerequisites
 
@@ -69,7 +78,20 @@ Activate the virtual environment and install dependencies again:
 ```bash
 python -m pip install -r requirements.txt
 ```
+## Usage Guide
 
+### Customers
+- Clicking items bring customers to the buy page
+- Configure amount and send the item(s) to the cart
+- Checkout provides customers with the subtotal and asks for customer information
+- Customers can check order progress in the live queue
+- Customers can contact staff through comments
+
+### Staff
+- Staff members enter login credentials at the staff login page
+- Staff password is 'staff@123'
+- Staff members can advance orders or clear the queue
+- Staff members can view and delete customer comments
 
 ## Meet the Team
 ### Aryan Bhadule
