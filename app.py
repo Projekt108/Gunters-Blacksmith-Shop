@@ -16,7 +16,30 @@ DATA_FILE = os.path.join(app.root_path, 'data', 'orders.json')
 
 COMMENTS_FILE = os.path.join(app.root_path, 'data', 'comments.json')
 GAME_STATE_FILE = os.path.join(app.root_path, 'data', 'game_state.json')
-INITIAL_GAME_STATE = {"cash": 0}
+INITIAL_GAME_STATE = {
+    "cash": 0,
+    "upgrades": 
+    [
+        {
+            "id": 1, 
+            "name": "River Panning", 
+            "level": 0,
+            "basecost": 10,
+            "currentcost": 10,
+            "money_generated": 4,
+            "time": 2
+        },
+        {
+            "id": 2, 
+            "name": "Serfs", 
+            "level": 0,
+            "basecost": 50,
+            "currentcost": 50,
+            "money_generated": 20,
+            "time": 5
+        }
+    ]
+}
 
 # Initialize comments file in case if it doesn't exist somehow
 def initialize_comments():

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game - Gunter's</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 <body>
     
@@ -29,35 +30,113 @@
 
         <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
-        <!--About us text-->
+        <!--Game-->
         <div style="padding: 30px 20px; text-align: center; display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
-            
-            <h1 style="color: #ccc;" id="cash-display">0</h1>
-            <button id="active-income" style="background-color: #800000; color: white; border: 2px solid #5a3a1a; padding: 10px 20px; cursor: pointer; border-radius: 8px; font-size: 16px; width: 100%;">
-                CLICK (+\$1)</button>
-
+            <div class="box">
+            <h2>Cash: $<span id="cash-display">0</span></h2>
+            <button id="active-income" style="width:100%; padding:12px; font-size:16px;"> Click for Active Income (+\$1)</button>
+    
+            <h3>Passive Holdings</h3>
+            <div id="upgrades-container"></div>
+            </div>
         </div>
 
         <img src="{{ url_for('static', filename='assets/divider.png') }}">
         
     </div>
 <script>
-    let game_state = {cash: 0};
+    let game_state = {cash: 0}, upgrades = [];
+    let timers = {};
+
     async function loadGameState() {
         const response = await fetch('/get_game_state');
         game_state = await response.json();
+        game_state.upgrades.forEach(upgrade => {
+            timers[upgrade.id] = {time_elapsed: 0};
+        });
+        renderUpgrades();
         updateCash();
     }
     function updateCash() 
     {
         document.getElementById('cash-display').textContent = game_state.cash;
+        game_state.upgrades.forEach(upgrade => {
+            const btn =document.getElementById(`btn-${upgrade.id}`);
+            if (btn) {
+                btn.disabled = game_state.cash < upgrade.currentcost;
+            }
+        });
+    }
+    function renderUpgrades() {
+        const container = document.getElementById('upgrades-container');
+        container.innerHTML = '';
         
-       
+        // Iterating over the consolidated array elements
+        game_state.upgrades.forEach(up => {
+            const html = `
+                <div class="upgrade-item" id="item-${up.id}">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <strong>${up.name}</strong> (Lv. <span id="lv-${up.id}">${up.level}</span>)<br>
+                            <small>Yields: $<span id="yield-${up.id}">${up.money_generated * up.level}</span> every ${up.time}s</small>
+                        </div>
+                        <button class="buy-btn" id="btn-${up.id}" onclick="buyUpgrade(${up.id})">Upgrade: $${up.currentcost}</button>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-fill" id="fill-${up.id}"></div>
+                    </div>
+                </div>
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        });
     }
     document.getElementById('active-income').addEventListener('click', function() {
         game_state.cash += 1;
         updateCash();
     });
+
+    function buyUpgrade(id) {
+        // Find matching item index inside our array structure
+        const upgrade = game_state.upgrades.find(up => up.id === id);
+        
+        if (upgrade && game_state.cash >= upgrade.currentcost) {
+            game_state.cash -= upgrade.currentcost;
+            
+            upgrade.level += 1;
+            upgrade.currentcost = Math.floor(upgrade.basecost * Math.pow(1.5, upgrade.level));
+            
+            document.getElementById(`lv-${id}`).textContent = upgrade.level;
+            document.getElementById(`yield-${id}`).textContent = upgrade.money_generated * upgrade.level;
+            document.getElementById(`btn-${id}`).textContent = `Upgrade: $${upgrade.currentcost}`;
+            
+            updateCash();
+            // Update the displayed values for the upgrade
+            document.getElementById(`lv-${id}`).textContent = upgrade.level;
+            document.getElementById(`yield-${id}`).textContent = upgrade.money_generated * upgrade.level;
+            document.getElementById(`btn-${id}`).textContent = `Upgrade: $${upgrade.currentcost}`;
+        }
+    }
+    //upgrades animation
+    setInterval(() => {
+        game_state.upgrades.forEach(up => {
+            if (up.level > 0) {
+                timers[up.id].time_elapsed += 0.1;
+                let pct = (timers[up.id].time_elapsed / up.time) * 100;
+                
+                if (pct >= 100) {
+                    timers[up.id].time_elapsed = 0;
+                    pct = 0;
+                    game_state.cash += (up.money_generated * up.level);
+                    updateCash();
+                }
+                const fillElem = document.getElementById(`fill-${up.id}`);
+                if (fillElem) {
+                    fillElem.style.width = pct + '%';
+                }
+            }
+        });
+    }, 100);
+    //autosave
     setInterval(() => {
         
         updateCash();
