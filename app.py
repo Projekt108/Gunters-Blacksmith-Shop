@@ -94,9 +94,17 @@ def load_orders():
 def load_game_state():
     if not os.path.exists(GAME_STATE_FILE):
         return INITIAL_GAME_STATE
-    with open(GAME_STATE_FILE, "r") as f:
-        game_state = json.load(f)
-    return game_state
+    try:
+        with open(GAME_STATE_FILE, "r") as f:
+            game_state = json.load(f)
+            
+        # If the upgrades list is missing or empty, reset it to the default!
+        if "upgrades" not in game_state or len(game_state["upgrades"]) == 0:
+            return INITIAL_GAME_STATE
+            
+        return game_state
+    except:
+        return INITIAL_GAME_STATE
 
 # All the routes for each page
 # @app.route(url)
@@ -187,6 +195,17 @@ def remove_from_cart(index):
         session['cart'] = cart
 
     return redirect(url_for('view_cart'))
+
+# Resets the minigame data
+@app.route('/reset_game', methods=['POST'])
+def reset_game():
+    if not session.get('is_staff'):
+        return "Unauthorized", 403
+        
+    with open(GAME_STATE_FILE, "w") as f:
+        json.dump(INITIAL_GAME_STATE, f)
+        
+    return redirect(url_for('staff'))
 
 # Checkout page route
 @app.route('/checkout')
