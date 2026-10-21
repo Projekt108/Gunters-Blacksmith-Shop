@@ -5,7 +5,7 @@ import os
 
 # Sets up Flask application and secret key 
 app = Flask(__name__)
-PRICES = {'sword': 80.00, 'helm': 50.00, 'chestplate': 100.00, 'cooking-pot': 20.00, 'armored-boots': 40.00, 'healing-brew': 25.00, 'refined-saddle': 60.00, 'chalice': 15.00,
+PRICES = {'sword': 80.00, 'helmet': 50.00, 'chestplate': 100.00, 'cooking-pot': 20.00, 'armored-boots': 40.00, 'healing-brew': 25.00, 'refined-saddle': 60.00, 'chalice': 15.00,
 'chalice-saddle': 70.00, 'helmet-cooking-pot': 65.00, 'sword-potion': 90, 'full-set': 200.00 
 }
 app.secret_key = os.environ.get('FLASK_SECRET_KEY', 'dev-only-change-me')
