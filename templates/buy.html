@@ -15,7 +15,7 @@
             </div>
 
             <img src="{{ url_for('static', filename='assets/divider.png') }}">
-
+            # Grabs the item name and replaces hyphens with spaces
             <div style="text-align: center; padding: 30px 20px;">
                 <h1>Purchase {{ item_name | replace('-', ' ') | title }}</h1>
                 

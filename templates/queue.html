@@ -13,8 +13,9 @@
         <nav class="tab-bar">
             <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
             <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
-            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
@@ -39,7 +40,7 @@
                         
                         <p style="font-size: 1rem; color: #ccc; margin-top: 5px;">
                             {% for item in order.order %}
-                                {{ item.item_name }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
+                                {{ item.item_name | replace('-', ' ') | title }} (x{{ item.quantity }}){% if not loop.last %}, {% endif %}
                             {% endfor %}
                         </p>
                         
@@ -51,7 +52,7 @@
                 {% endfor %}
                 </ul>
             {% else %}
-                <!--We can put something later if we decide idk not necessary-->
+                <!--Unused currently-->
             {% endif %}
         </div>
 

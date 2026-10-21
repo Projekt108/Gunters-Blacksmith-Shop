@@ -14,8 +14,9 @@
         <nav class="tab-bar">
             <a href="{{ url_for('home') }}" class="tab-link {{ 'active' if request.path == '/' else '' }}">Home</a>
             <a href="{{ url_for('shop') }}" class="tab-link {{ 'active' if request.path == '/shop' else '' }}">Shop</a>
-            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
+            <a href="{{ url_for('view_cart') }}" class="tab-link {{ 'active' if request.path == '/cart' else '' }}">Cart</a>
             <a href="{{ url_for('queue') }}" class="tab-link {{ 'active' if request.path == '/queue' else '' }}">Queue</a>
+            <a href="{{ url_for('about') }}" class="tab-link {{ 'active' if request.path == '/about' else '' }}">About</a>
             <a href="{{ url_for('contact') }}" class="tab-link {{ 'active' if request.path == '/contact' else '' }}">Contact</a>
             <a href="{{ url_for('staff') }}" class="tab-link {{ 'active' if request.path == '/staff' else '' }}">Staff</a>
         </nav>
@@ -27,7 +28,7 @@
 
         <img src="{{ url_for('static', filename='assets/divider.png') }}">
 
-        <!--About us text wow so tuff-->
+        <!--About us text-->
         <div style="padding: 30px 20px; text-align: center; display: flex; flex-direction: column; min-height: 80vh; justify-content: center;">
             
             <h1 style="font-size: clamp(1.5rem, 7vw, 2.5rem); margin-bottom: 20px; white-space: nowrap;">About Us</h1>

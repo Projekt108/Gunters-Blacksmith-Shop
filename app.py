@@ -45,41 +45,49 @@ def load_orders():
 # All the routes for each page
 # @app.route(url)
 # def method(variable): 
+
+# Home page route
 @app.route('/') 
 def home():    
     return render_template('index.html')
 
+# Shop page route
 @app.route('/shop')
 def shop():
     return render_template('shop.html') 
 
+# Queue page route
 @app.route('/queue')
 def queue():
     orders = load_orders()
     return render_template('queue.html', orders=orders)
 
+# About page route
 @app.route('/about')
 def about():
     return render_template('about.html')
 
+# Contact page route
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
     
+# Buy page route, shows the page for the specific item
 @app.route('/buy/<item_name>')
 def buy_page(item_name):
     item_price = PRICES.get(item_name, 0.00)
     return render_template('buy.html', item_name=item_name, price=item_price)
 
+# Add to cart route, gets the item name and quantity to put into the current cart
 @app.route('/add_to_cart/<item_name>', methods=['POST'])
 def add_to_cart(item_name):
-    # Retrieve the current cart from the session
     quantity = int(request.form.get('quantity') or 1)
     cart = session.get('cart', [])
     cart.append({"item_name": item_name, "quantity": quantity})
     session['cart'] = cart
     return redirect(url_for('view_cart'))
 
+# Cart page route, with cart items and total price
 @app.route('/cart')
 def view_cart():
     cart_items = session.get('cart', [])
@@ -93,6 +101,7 @@ def clear_cart():
     session.pop('cart', None)
     return redirect(url_for('shop'))
 
+# Remove from cart route, removes an item from the current cart
 @app.route('/remove_from_cart/<int:index>', methods=['POST'])
 def remove_from_cart(index):
     # Retrieve the current cart from the session
@@ -105,6 +114,7 @@ def remove_from_cart(index):
 
     return redirect(url_for('view_cart'))
 
+# Checkout page route
 @app.route('/checkout')
 def checkout():
     # Check if the cart is empty before proceeding to checkout
@@ -113,6 +123,7 @@ def checkout():
 
     return render_template('checkout.html')
 
+# Submit order route, includes client name, status, and cart items  
 @app.route('/submit_order', methods=['POST'])
 def submit_order():
     first_name = (request.form.get('first_name') or '').strip()
@@ -134,10 +145,10 @@ def submit_order():
     try:
         orders_list = load_orders()
         orders_list.append(new_order)
-
+        # Save the updated orders list to the data file
         with open(DATA_FILE, "w") as f:
             json.dump(orders_list, f, indent=4)
-
+    # Handles errors
     except (json.JSONDecodeError, ValueError):
         return "The orders file contains invalid data.", 500
     except OSError:
@@ -177,12 +188,13 @@ def staff():
     
     # If not logged in show the password screen
     return render_template('staff.html', logged_in=False)
-
+# Staff logout route
 @app.route('/staff_logout')
 def staff_logout():
     session.pop('is_staff', None)
     return redirect(url_for('staff'))
 
+# Allows staff to advance the order to the next status 
 @app.route('/advance_order/<int:index>', methods=['POST'])
 def advance_order(index):
     if not session.get('is_staff'):
@@ -205,6 +217,7 @@ def advance_order(index):
             
     return redirect(url_for('staff'))
 
+# Allows staff to submit comments
 @app.route('/submit_comment', methods=['POST'])
 def submit_comment():
     comment_text = request.form.get('comment')
@@ -220,7 +233,7 @@ def submit_comment():
             json.dump(comments, f, indent=4)
             
     return redirect(url_for('contact', success = 1))
-
+# Clears all orders from the list
 @app.route('/clear_orders', methods=['POST'])
 def clear_orders():
     if not session.get('is_staff'):
@@ -231,7 +244,7 @@ def clear_orders():
         json.dump([], f)
         
     return redirect(url_for('staff'))
-
+# Clears all comments from the list
 @app.route('/clear_comments', methods=['POST'])
 def clear_comments():
     if not session.get('is_staff'):
@@ -242,7 +255,7 @@ def clear_comments():
         json.dump([], f)
         
     return redirect(url_for('staff'))
-    
+# Removes a specific order from the list
 @app.route('/delete_order/<int:index>', methods=['POST'])
 def delete_order(index):
     if not session.get('is_staff'):
@@ -257,6 +270,7 @@ def delete_order(index):
             
     return redirect(url_for('staff'))
 
+# Initialize data and comments files if they do not exist already
 initialize_file()
 initialize_comments()
 
