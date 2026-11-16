@@ -94,25 +94,25 @@ python -m pip install -r requirements.txt
 - Staff members can view and delete customer comments
 
 ## Meet the Team
-### Aryan Bhadule
+### Aryan
 Lead Frontend Developer
 - Developed CSS and HTML 
 - Implemented user interface and user flows
 - Designed staff page and login
 
-### Jerry Liu
+### Jerry
 Lead Backend Developer
 - Developed Python functions
 - Programmed Flask decorators
 - Configued database for user data
 
-### Soham Mukherjee
+### Soham 
 Lead Graphic Designer, Presentation Designer
 - Created key graphic elements
 - Designed website theming 
 - Organized presentation materials 
 
-### Zane Schrage
+### Zane 
 Frontend Developer, Lead Infrastructure Engineer
 - Set up the web server on Raspberry Pi 5
 - Configured the web server for http and https
